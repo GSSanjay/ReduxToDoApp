@@ -1,7 +1,7 @@
 import React from "react";
 import { inc, add, deletemsg } from "./redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
-import countreducer from "./redux/reducers/countreducer";
+import "./App.css";
 
 const App = () => {
   const state = useSelector((reducer) => reducer.countreducer);
@@ -9,11 +9,6 @@ const App = () => {
   // console.log(state.count);
   let msgInput;
   console.log("message", message);
-
-  // const arr = message.map((elem) => {
-  //   return elem.message;
-  // });
-  // console.log(arr);
 
   const dispatch = useDispatch();
   const increament = () => {
@@ -35,42 +30,40 @@ const App = () => {
     let id = parseInt(event.target.id);
 
     dispatch(deletemsg(id));
-    /* 
-    const arr = message.map((elem) => {
-      return elem.message;
-    });
-    // console.log(arr);
-
-    let temp = message.filter((elem, index) => {
-      console.log("index ", index, "id ", id);
-      console.log(index !== id);
-      console.log(elem);
-      return index !== id;
-    });
-
-    console.log("Filter", temp); */
   };
 
   return (
     <>
-      <h1>{state.count}</h1>
+      <main>
+        <div className="container">
+          {/* <h1>{state.count}</h1> */}
 
-      {message.map((elem, index) => {
-        return (
-          <p key={index}>
-            {elem.message}
-            <button id={index} onClick={(event) => deletemessage(event)}>
-              Delete
+          {message.map((elem, index) => {
+            return (
+              <div className="sub-container">
+                <p key={index}>
+                  {elem.message}
+                  <button
+                    className="btn secondary-btn"
+                    id={index}
+                    onClick={(event) => deletemessage(event)}
+                  >
+                    Done
+                  </button>
+                </p>
+              </div>
+            );
+          })}
+
+          {/* <button onClick={increament}>+</button> */}
+          <form onSubmit={(event) => addmessage(event)}>
+            <input type="text" value={msgInput} name="msgInput" id="" />
+            <button className="btn btn-primary" type="submit">
+              Add
             </button>
-          </p>
-        );
-      })}
-
-      <button onClick={increament}>+</button>
-      <form onSubmit={(event) => addmessage(event)}>
-        <input type="text" value={msgInput} name="msgInput" id="" />
-        <button type="submit">Add</button>
-      </form>
+          </form>
+        </div>
+      </main>
     </>
   );
 };
